@@ -60,7 +60,7 @@ const Currency = () => {
   async function convertCurrency(from, to, amount) {
     const CONVERT_URL = `${CURRENCY_API_URL}convert?api_key=${CURRENCY_API_KEY}&from=${from}&to=${to}&amount=${amount}`;
     try {
-      if (amount === 0) {
+      if (amount === "") {
         alert("Enter amount");
       }
       if (amount < 0) {
