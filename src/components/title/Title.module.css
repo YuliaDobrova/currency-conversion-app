@@ -1,0 +1,25 @@
+.title {
+  font-size: 24px;
+  padding-top: 20px;
+  text-align: center;
+  text-shadow: 0 0 20px aquamarine, 1px 1px 20px aquamarine,
+    2px 2px 20px aquamarine, -1px -1px 20px aquamarine,
+    -2px -2px 20px aquamarine;
+  animation: textShadow 2500ms infinite alternate;
+}
+
+@media screen and (min-width: 400px) {
+  .title {
+    font-size: 36px;
+  }
+}
+
+@keyframes textShadow {
+  from {
+    text-shadow: 2px 2px 10px aquamarine, -2px -2px 10px aquamarine;
+  }
+  to {
+    text-shadow: 0 0 20px #bd44ff, 1px 1px 20px #bd44ff, 2px 2px 20px #bd44ff,
+      -1px -1px 20px #bd44ff, -2px -2px 20px #bd44ff;
+  }
+}

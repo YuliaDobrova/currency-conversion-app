@@ -1,0 +1,94 @@
+/* --------------Styles reset start---------------- */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+ul {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+/* --------------Styles reset end---------------- */
+body {
+  height: 100vh;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: #ffffff;
+  overflow-x: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #282c34;
+  background-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.25),
+      rgba(0, 0, 0, 0.75)
+    ),
+    url(./images/currency-bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.container {
+  height: 50vh;
+  min-height: 550px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 30 px;
+  background-color: midnightblue;
+  opacity: 0.85;
+  border-radius: 30px;
+  box-shadow: 1px 1px 15px rgba(255, 255, 255, 0.5),
+    -1px -1px 15px rgba(255, 255, 255, 0.5);
+}
+@media screen and (min-width: 400px) {
+  .container {
+    width: 50vw;
+  }
+}
+
+/* --------------Selection---------------- */
+::selection {
+  background: rgba(97, 125, 251, 0.75);
+  color: rgba(234, 234, 234, 0.9);
+}
+::-moz-selection {
+  background: rgba(97, 125, 251, 0.75);
+  color: rgba(234, 234, 234, 0.9);
+}
+::-webkit-selection {
+  background: rgba(97, 125, 251, 0.75);
+  color: rgba(234, 234, 234, 0.9);
+}

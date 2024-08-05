@@ -1,1 +1,26 @@
-# currency-conversion-app
+# Currency Conversion App
+
+This currency converter uses the Currency Beacon API to fetch current exchange rates for currencies worldwide. To fetch a list of currencies from the Currency Beacon API, you need to obtain your own API key.
+There is an example of the necessary variables in .env.local.
+
+### Installation
+
+Navigate to the project directory "currency-conversion-app(main)".
+Install all dependencies by running:
+
+## `npm install`
+
+### Starting the Project
+
+In the project directory "currency-conversion-app(main)", start the project by running:
+
+## `npm start`
+
+The app will run in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+
+The page will reload if you make edits.
+You will also see any lint errors in the console.
+
+### Production Version
+
+To see the build version, visit the [Currency Conversion App](https://currency-conversion-application.vercel.app).

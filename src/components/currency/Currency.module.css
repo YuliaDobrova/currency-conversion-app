@@ -1,0 +1,115 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+form {
+  background-color: #768de848;
+  padding: 25px 30px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+}
+
+label {
+  text-align: center;
+}
+
+label,
+select,
+input {
+  display: block;
+}
+
+button,
+select,
+input {
+  outline: none;
+  width: 100%;
+  padding: 10px;
+  border: none;
+  color: #fff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition-property: background-color, transform;
+  transition-duration: 0.2s;
+}
+
+option {
+  background-color: #fff;
+  color: #fff;
+}
+
+input {
+  color: #fff;
+  text-align: center;
+  background-color: #0c2b59;
+}
+input:focus,
+input:hover {
+  color: #0c2b59;
+  background-color: #eef;
+}
+
+label {
+  padding: 10px 0;
+}
+
+select,
+option {
+  text-align: center;
+  background-color: #0c2b59;
+  padding: 8px;
+  font-size: 0.9rem;
+}
+
+select:hover {
+  background-color: #617dfbbf;
+  transform: scale(0.97);
+}
+
+button {
+  background-color: #617dfbbf;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+button:hover {
+  transform: scale(0.97);
+  background-color: #bd44ff;
+  color: #fff;
+}
+
+.inputBox {
+  display: flex;
+  position: relative;
+  background-color: #fff;
+  border-radius: 5px;
+}
+
+#amount {
+  margin: 0;
+}
+
+.result_box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  background-color: #768de848;
+  border: 1px solid #617dfbbf;
+  padding: 20px 10px;
+  border-radius: 10px;
+}
+.result_box p span {
+  font-weight: bold;
+}
