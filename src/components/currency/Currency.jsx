@@ -107,6 +107,7 @@ const Currency = () => {
         </div>
       )}
       <form>
+        <p className={styles.text}>FROM:</p>
         <select
           title="fromCurrency"
           id="fromCurrency"
@@ -124,7 +125,7 @@ const Currency = () => {
             )
           )}
         </select>
-        <label>TO</label>
+        <p className={styles.text}>TO:</p>
         <select
           title="toCurrency"
           id="toCurrency"
