@@ -8,7 +8,6 @@ export const getCurrency = async () => {
     const response = await axios.get(
       `${CURRENCY_API_URL}currencies?api_key=${CURRENCY_API_KEY}`
     );
-    console.log("response", response);
     return response.data;
   } catch (error) {
     throw new Error(error);

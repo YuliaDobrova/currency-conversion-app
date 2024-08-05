@@ -5,8 +5,8 @@ import { getCurrency } from "../../api/currencyServise";
 import styles from "./Currency.module.css";
 
 const Currency = () => {
-  const CURRENCY_API_KEY = process.env.REACT_APP_CURRENCY_API_KEY;
-  const CURRENCY_API_URL = process.env.REACT_APP_CURRENCY_API_URL;
+  const CURRENCY_API_KEY = process.env.REACT_APP_CURRENCY_API_KEY || "";
+  const CURRENCY_API_URL = process.env.REACT_APP_CURRENCY_API_URL || "";
 
   const [isLoading, setIsLoading] = useState(false);
   const [allCurrencyData, setAllCurrencyData] = useState([]);
@@ -29,23 +29,26 @@ const Currency = () => {
   }
 
   useEffect(() => {
-    console.log("useEffect-allCurrencyData", allCurrencyData);
     getAllCurrencyData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // -------------SELECT CURRENCY-------------
-  const onFromCurrencyChange = (event) => {
-    const chosenCurrency = allCurrencyData.filter(
+  const handleCurrencyChange = (event, setCurrencyShortCode) => {
+    const chosenCurrency = allCurrencyData?.filter(
       (cur) => cur.name === event.target.value
     );
-    setFromCurrencyShortCode(chosenCurrency[0].short_code);
+    if (chosenCurrency.length > 0) {
+      setCurrencyShortCode(chosenCurrency[0].short_code);
+    }
+  };
+
+  const onFromCurrencyChange = (event) => {
+    handleCurrencyChange(event, setFromCurrencyShortCode);
   };
 
   const onToCurrencyChange = (event) => {
-    const chosenCurrency = allCurrencyData.filter(
-      (cur) => cur.name === event.target.value
-    );
-    setToCurrencyShortCode(chosenCurrency[0].short_code);
+    handleCurrencyChange(event, setToCurrencyShortCode);
   };
 
   // -------------CHANGE AMOUNT-------------
@@ -54,28 +57,20 @@ const Currency = () => {
   };
 
   // -------------CONVERT CURRENCY-------------
-  async function convertCurrency() {
-    // const fromCurrency = "USD";
-    // const toCurrency = "EUR";
-    // const amount = 100;
-    const fromCurrency = fromCurrencyShortCode;
-    const toCurrency = toCurrencyShortCode;
-    const CONVERT_URL = `${CURRENCY_API_URL}convert?api_key=${CURRENCY_API_KEY}&from=${fromCurrency}&to=${toCurrency}&amount=${amount}`;
-
+  async function convertCurrency(from, to, amount) {
+    const CONVERT_URL = `${CURRENCY_API_URL}convert?api_key=${CURRENCY_API_KEY}&from=${from}&to=${to}&amount=${amount}`;
     try {
-      if (amount === "") {
+      if (amount === 0) {
         alert("Enter amount");
       }
       if (amount < 0) {
         alert("The number cannot be negative. Enter a positive number.");
       }
       const response = await axios.get(CONVERT_URL);
-      console.log("response.data", response.data);
       if (response.status !== 200) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
       const result = response.data.value;
-      console.log("result", result);
       const roundedResult = Number(result.toFixed(2));
       setConvertedResult(roundedResult);
     } catch (error) {
@@ -84,8 +79,8 @@ const Currency = () => {
     }
   }
 
-  const onExchangeBtnClick = () => {
-    convertCurrency();
+  const onConvertBtnClick = () => {
+    convertCurrency(fromCurrencyShortCode, toCurrencyShortCode, amount);
   };
 
   // -------------CLEAR-ALL------------
@@ -162,7 +157,7 @@ const Currency = () => {
           <span id="symbol"></span>
         </div>
 
-        <button type="button" onClick={onExchangeBtnClick}>
+        <button type="button" onClick={onConvertBtnClick}>
           Convert
         </button>
         <div className={styles.result_box}>
