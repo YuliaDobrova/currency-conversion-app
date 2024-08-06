@@ -1,10 +1,10 @@
 const Select = ({
   allCurrency = [],
-  onCurrencyChangeFunc = () => {},
+  onChangeFunc = () => {},
   shortCode = "",
 }) => {
   return (
-    <select onChange={onCurrencyChangeFunc}>
+    <select onChange={onChangeFunc}>
       {allCurrency?.map((el) =>
         el.short_code === shortCode ? (
           <option value={el.name} key={el.id} selected>

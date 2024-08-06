@@ -36,9 +36,12 @@ const Currency = () => {
   }, []);
 
   // -------------SELECT CURRENCY-------------
-  const handleCurrencyChange = (event, setCurrencyShortCode) => {
+  const handleCurrencyChange = (
+    shortCode = "",
+    setCurrencyShortCode = () => {}
+  ) => {
     const chosenCurrency = allCurrencyData?.filter(
-      (cur) => cur.name === event.target.value
+      (cur) => cur.name === shortCode
     );
     if (chosenCurrency.length > 0) {
       setCurrencyShortCode(chosenCurrency[0].short_code);
@@ -46,11 +49,11 @@ const Currency = () => {
   };
 
   const onFromCurrencyChange = (event) => {
-    handleCurrencyChange(event, setFromCurrencyShortCode);
+    handleCurrencyChange(event.target.value, setFromCurrencyShortCode);
   };
 
   const onToCurrencyChange = (event) => {
-    handleCurrencyChange(event, setToCurrencyShortCode);
+    handleCurrencyChange(event.target.value, setToCurrencyShortCode);
   };
 
   // -------------CHANGE AMOUNT-------------
@@ -66,9 +69,13 @@ const Currency = () => {
     try {
       if (amount === "") {
         alert("Enter amount");
+        setAmount("");
+        return;
       }
       if (amount < 0) {
         alert("The number cannot be negative. Enter a positive number.");
+        setAmount("");
+        return;
       }
       const response = await axios.get(CONVERT_URL);
       if (response.status !== 200) {
@@ -91,8 +98,9 @@ const Currency = () => {
   const onClearAllClick = () => {
     setAmount("");
     setConvertedResult("");
-    setFromCurrencyShortCode("CAD");
-    setToCurrencyShortCode("USD");
+    handleCurrencyChange("CAD", setFromCurrencyShortCode);
+    handleCurrencyChange("USD", setToCurrencyShortCode);
+    window.location.reload();
   };
 
   return (
@@ -102,13 +110,13 @@ const Currency = () => {
         <p className={styles.text}>FROM:</p>
         <Select
           allCurrency={allCurrencyData}
-          onCurrencyChangeFunc={onFromCurrencyChange}
+          onChangeFunc={onFromCurrencyChange}
           shortCode={"CAD"}
         />
         <p className={styles.text}>TO:</p>
         <Select
           allCurrency={allCurrencyData}
-          onCurrencyChangeFunc={onToCurrencyChange}
+          onChangeFunc={onToCurrencyChange}
           shortCode={"USD"}
         />
         <br />
@@ -116,7 +124,6 @@ const Currency = () => {
           <input
             type="number"
             name="amount"
-            id="amount"
             placeholder="Enter amount"
             value={amount}
             onChange={onInputChange}
