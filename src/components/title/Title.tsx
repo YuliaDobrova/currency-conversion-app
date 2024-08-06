@@ -2,7 +2,7 @@ import styles from "./Title.module.css"
 
 const Title = () => {
     return (
-        <h1 className={styles.title}>Currency Conventer</h1>
+        <h1 className={styles.title}>Currency Converter</h1>
     );
 }
 

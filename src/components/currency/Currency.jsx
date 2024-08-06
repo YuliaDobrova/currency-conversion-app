@@ -3,6 +3,8 @@ import axios from "axios";
 import { Bars } from "react-loader-spinner";
 import { getCurrency } from "../../api/currencyServise";
 import styles from "./Currency.module.css";
+import Select from "../shared/Select/Select";
+import Button from "../shared/Button/Button";
 
 const Currency = () => {
   const CURRENCY_API_KEY = process.env.REACT_APP_CURRENCY_API_KEY || "";
@@ -57,7 +59,9 @@ const Currency = () => {
   };
 
   // -------------CONVERT CURRENCY-------------
-  async function convertCurrency(from, to, amount) {
+  async function convertCurrency() {
+    const from = fromCurrencyShortCode;
+    const to = toCurrencyShortCode;
     const CONVERT_URL = `${CURRENCY_API_URL}convert?api_key=${CURRENCY_API_KEY}&from=${from}&to=${to}&amount=${amount}`;
     try {
       if (amount === "") {
@@ -80,7 +84,7 @@ const Currency = () => {
   }
 
   const onConvertBtnClick = () => {
-    convertCurrency(fromCurrencyShortCode, toCurrencyShortCode, amount);
+    convertCurrency();
   };
 
   // -------------CLEAR-ALL------------
@@ -108,41 +112,17 @@ const Currency = () => {
       )}
       <form>
         <p className={styles.text}>FROM:</p>
-        <select
-          title="fromCurrency"
-          id="fromCurrency"
-          onChange={onFromCurrencyChange}
-        >
-          {allCurrencyData?.map((el) =>
-            el.short_code === "CAD" ? (
-              <option value={el.name} key={el.id} selected>
-                {el.name} {el.symbol}
-              </option>
-            ) : (
-              <option value={el.name} key={el.id}>
-                {el.name} {el.symbol}
-              </option>
-            )
-          )}
-        </select>
+        <Select
+          allCurrency={allCurrencyData}
+          onCurrencyChangeFunc={onFromCurrencyChange}
+          shortCode={"CAD"}
+        />
         <p className={styles.text}>TO:</p>
-        <select
-          title="toCurrency"
-          id="toCurrency"
-          onChange={onToCurrencyChange}
-        >
-          {allCurrencyData?.map((el) =>
-            el.short_code === "USD" ? (
-              <option value={el.name} key={el.id} selected>
-                {el.name} {el.symbol}
-              </option>
-            ) : (
-              <option value={el.name} key={el.id}>
-                {el.name} {el.symbol}
-              </option>
-            )
-          )}
-        </select>
+        <Select
+          allCurrency={allCurrencyData}
+          onCurrencyChangeFunc={onToCurrencyChange}
+          shortCode={"USD"}
+        />
         <br />
         <div>
           <label htmlFor="amount">
@@ -157,19 +137,14 @@ const Currency = () => {
           </label>
           <span id="symbol"></span>
         </div>
-
-        <button type="button" onClick={onConvertBtnClick}>
-          Convert
-        </button>
+        <Button onBtnClick={onConvertBtnClick} text="Convert" />
         <div className={styles.result_box}>
           <p>
             <span>Result: </span>
             <span>{convertedResult}</span>
           </p>
         </div>
-        <button type="button" onClick={onClearAllClick}>
-          Clear
-        </button>
+        <Button onBtnClick={onClearAllClick} text="Clear" />
       </form>
     </>
   );
