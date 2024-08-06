@@ -3,7 +3,6 @@ const Select = ({
   onCurrencyChangeFunc = () => {},
   shortCode = "",
 }) => {
-  console.log("allCurrencyData", allCurrency);
   return (
     <select onChange={onCurrencyChangeFunc}>
       {allCurrency?.map((el) =>

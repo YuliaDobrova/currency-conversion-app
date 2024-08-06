@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { Bars } from "react-loader-spinner";
 import { getCurrency } from "../../api/currencyServise";
 import styles from "./Currency.module.css";
 import Select from "../shared/Select/Select";
 import Button from "../shared/Button/Button";
+import Loader from "../loader/Loader";
 
 const Currency = () => {
   const CURRENCY_API_KEY = process.env.REACT_APP_CURRENCY_API_KEY || "";
@@ -97,19 +97,7 @@ const Currency = () => {
 
   return (
     <>
-      {isLoading && (
-        <div className={styles.loader}>
-          <Bars
-            height="50"
-            width="50"
-            color="#fff"
-            ariaLabel="bars-loading"
-            wrapperStyle={{}}
-            wrapperClass=""
-            visible={true}
-          />
-        </div>
-      )}
+      {isLoading && <Loader />}
       <form>
         <p className={styles.text}>FROM:</p>
         <Select
@@ -124,19 +112,16 @@ const Currency = () => {
           shortCode={"USD"}
         />
         <br />
-        <div>
-          <label htmlFor="amount">
-            <input
-              type="number"
-              name="amount"
-              id="amount"
-              placeholder="Enter amount"
-              value={amount}
-              onChange={onInputChange}
-            />
-          </label>
-          <span id="symbol"></span>
-        </div>
+        <label htmlFor="amount">
+          <input
+            type="number"
+            name="amount"
+            id="amount"
+            placeholder="Enter amount"
+            value={amount}
+            onChange={onInputChange}
+          />
+        </label>
         <Button onBtnClick={onConvertBtnClick} text="Convert" />
         <div className={styles.result_box}>
           <p>
