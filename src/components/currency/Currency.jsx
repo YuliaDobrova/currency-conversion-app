@@ -9,7 +9,7 @@ import { getCurrency, convertCurrency } from "../../api/currencyServiсe";
 
 import { fields } from "./fields";
 
-import styles from "./Currency.module.css";
+import "./Currency.css";
 
 const Currency = () => {
   // -------------ALL STATES-------------
@@ -98,13 +98,13 @@ const Currency = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <p className={styles.text}>FROM:</p>
+        <p className="currency-text">FROM:</p>
         <Select
           options={allCurrencyData}
           onChange={onFromCurrencyChange}
           shortCode={fromCurrencyShortCode}
         />
-        <p className={styles.text}>TO:</p>
+        <p className="currency-text">TO:</p>
         <Select
           options={allCurrencyData}
           onChange={onToCurrencyChange}
@@ -113,7 +113,7 @@ const Currency = () => {
         <br />
         <Input {...fields.amount} value={amount} onChange={onAmountChange} />
         <Button>Convert</Button>
-        <div className={styles.result_box}>
+        <div className="currency-result-box">
           <p>
             <span>Result: </span>
             <span>{convertedResult}</span>
