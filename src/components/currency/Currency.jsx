@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 import Select from "../shared/Select/Select";
 import Input from "../shared/Input/Input";
@@ -13,6 +12,7 @@ import { fields } from "./fields";
 import styles from "./Currency.module.css";
 
 const Currency = () => {
+  // -------------ALL STATES-------------
   const [isLoading, setIsLoading] = useState(false);
   const [allCurrencyData, setAllCurrencyData] = useState([]);
   const [error, setError] = useState(null);
@@ -22,7 +22,6 @@ const Currency = () => {
   const [convertedResult, setConvertedResult] = useState("");
 
   // -------------GET ALL CURRENCY DATA-------------
-
   useEffect(() => {
     async function getAllCurrencyData() {
       try {

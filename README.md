@@ -1,8 +1,9 @@
 # Currency Conversion App
 
-## React + TypeScript + Vite
+### React + TypeScript + Vite
 
-This currency converter uses the Currency Beacon API to fetch current exchange rates for currencies worldwide. To fetch a list of currencies from the Currency Beacon API, you need to obtain your own API key.
+This currency converter uses the Currency Beacon API to fetch current exchange rates for currencies worldwide.
+To fetch a list of currencies from the Currency Beacon API, you need to obtain your own API key.
 There is an example of the necessary variables in .env.local.
 
 ### Installation
