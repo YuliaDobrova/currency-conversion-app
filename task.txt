@@ -54,4 +54,4 @@ Are any optional features implemented effectively?
 - Please ensure that your project is self-contained and can be easily set up and run by the evaluation team.
 - If you have any questions or need clarification on the requirements, feel free to reach out for assistance. Good luck!
 
-builded in vercel
+builded in vercel with vite
