@@ -79,7 +79,7 @@ const Currency = () => {
     }
   }
 
-  // -------------CLEAR-ALL------------
+  // -------------CLEAR ALL------------
   const onClearAllClick = () => {
     setAmount("");
     setConvertedResult("");
