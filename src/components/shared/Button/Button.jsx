@@ -1,7 +1,7 @@
-const Button = ({ onBtnClick = () => {}, text = "" }) => {
+const Button = ({ type= "submit", onBtnClick = () => {}, children }) => {
   return (
-    <button type="button" onClick={onBtnClick}>
-      {text}
+    <button type={type} onClick={onBtnClick}>
+      {children}
     </button>
   );
 };

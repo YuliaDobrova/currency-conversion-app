@@ -56,7 +56,7 @@ body {
       rgba(0, 0, 0, 0.25),
       rgba(0, 0, 0, 0.75)
     ),
-    url(./images/currency-bg.jpg);
+    url(./assets/images/currency-bg.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }

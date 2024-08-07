@@ -1,88 +1,78 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { getCurrency } from "../../api/currencyServise";
-import styles from "./Currency.module.css";
+
 import Select from "../shared/Select/Select";
+import Input from "../shared/Input/Input";
 import Button from "../shared/Button/Button";
 import Loader from "../loader/Loader";
 
-const Currency = () => {
-  const CURRENCY_API_KEY = process.env.REACT_APP_CURRENCY_API_KEY || "";
-  const CURRENCY_API_URL = process.env.REACT_APP_CURRENCY_API_URL || "";
+import { getCurrency, convertCurrency } from "../../api/currencyServiсe";
 
+import { fields } from "./fields";
+
+import styles from "./Currency.module.css";
+
+const Currency = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [allCurrencyData, setAllCurrencyData] = useState([]);
+  const [error, setError] = useState(null);
   const [fromCurrencyShortCode, setFromCurrencyShortCode] = useState("CAD");
   const [toCurrencyShortCode, setToCurrencyShortCode] = useState("USD");
   const [amount, setAmount] = useState("");
   const [convertedResult, setConvertedResult] = useState("");
 
   // -------------GET ALL CURRENCY DATA-------------
-  async function getAllCurrencyData() {
-    try {
-      setIsLoading(true);
-      const { response } = await getCurrency();
-      setAllCurrencyData([...response]);
-      setIsLoading(false);
-    } catch (error) {
-      console.log("Error:", error);
-      setIsLoading(false);
-    }
-  }
 
   useEffect(() => {
+    async function getAllCurrencyData() {
+      try {
+        setIsLoading(true);
+        const { response } = await getCurrency();
+        setAllCurrencyData([...response]);
+      } catch (error) {
+        console.log("Error:", error);
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
     getAllCurrencyData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // -------------SELECT CURRENCY-------------
-  const handleCurrencyChange = (
-    shortCode = "",
-    setCurrencyShortCode = () => {}
-  ) => {
-    const chosenCurrency = allCurrencyData?.filter(
-      (cur) => cur.name === shortCode
-    );
-    if (chosenCurrency.length > 0) {
-      setCurrencyShortCode(chosenCurrency[0].short_code);
-    }
-  };
-
-  const onFromCurrencyChange = (event) => {
-    handleCurrencyChange(event.target.value, setFromCurrencyShortCode);
-  };
-
-  const onToCurrencyChange = (event) => {
-    handleCurrencyChange(event.target.value, setToCurrencyShortCode);
-  };
+  const onFromCurrencyChange = ({ target }) =>
+    setFromCurrencyShortCode(target.value);
+  const onToCurrencyChange = ({ target }) =>
+    setToCurrencyShortCode(target.value);
 
   // -------------CHANGE AMOUNT-------------
-  const onInputChange = (event) => {
+  const onAmountChange = (event) => {
     setAmount(event.target.value);
   };
 
   // -------------CONVERT CURRENCY-------------
-  async function convertCurrency() {
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (amount === "") {
+      alert("Enter amount");
+      setAmount("");
+      return;
+    }
+    if (amount < 0) {
+      alert("The number cannot be negative. Enter a positive number.");
+      setAmount("");
+      return;
+    }
+
     const from = fromCurrencyShortCode;
     const to = toCurrencyShortCode;
-    const CONVERT_URL = `${CURRENCY_API_URL}convert?api_key=${CURRENCY_API_KEY}&from=${from}&to=${to}&amount=${amount}`;
+
     try {
-      if (amount === "") {
-        alert("Enter amount");
-        setAmount("");
-        return;
-      }
-      if (amount < 0) {
-        alert("The number cannot be negative. Enter a positive number.");
-        setAmount("");
-        return;
-      }
-      const response = await axios.get(CONVERT_URL);
-      if (response.status !== 200) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      const result = response.data.value;
-      const roundedResult = Number(result.toFixed(2));
+      const data = await convertCurrency({ to, from, amount });
+      const { value } = data;
+      const roundedResult = Number(value.toFixed(2));
       setConvertedResult(roundedResult);
     } catch (error) {
       console.error("Error:", error);
@@ -90,53 +80,49 @@ const Currency = () => {
     }
   }
 
-  const onConvertBtnClick = () => {
-    convertCurrency();
-  };
-
   // -------------CLEAR-ALL------------
   const onClearAllClick = () => {
     setAmount("");
     setConvertedResult("");
-    handleCurrencyChange("CAD", setFromCurrencyShortCode);
-    handleCurrencyChange("USD", setToCurrencyShortCode);
-    window.location.reload();
+    setFromCurrencyShortCode("CAD");
+    setToCurrencyShortCode("USD");
   };
+
+  if (error) {
+    return <p>Techinal error. Please enter later.</p>;
+  }
+
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
-      {isLoading && <Loader />}
-      <form>
+      <form onSubmit={handleSubmit}>
         <p className={styles.text}>FROM:</p>
         <Select
-          allCurrency={allCurrencyData}
-          onChangeFunc={onFromCurrencyChange}
-          shortCode={"CAD"}
+          options={allCurrencyData}
+          onChange={onFromCurrencyChange}
+          shortCode={fromCurrencyShortCode}
         />
         <p className={styles.text}>TO:</p>
         <Select
-          allCurrency={allCurrencyData}
-          onChangeFunc={onToCurrencyChange}
-          shortCode={"USD"}
+          options={allCurrencyData}
+          onChange={onToCurrencyChange}
+          shortCode={toCurrencyShortCode}
         />
         <br />
-        <label htmlFor="amount">
-          <input
-            type="number"
-            name="amount"
-            placeholder="Enter amount"
-            value={amount}
-            onChange={onInputChange}
-          />
-        </label>
-        <Button onBtnClick={onConvertBtnClick} text="Convert" />
+        <Input {...fields.amount} value={amount} onChange={onAmountChange} />
+        <Button>Convert</Button>
         <div className={styles.result_box}>
           <p>
             <span>Result: </span>
             <span>{convertedResult}</span>
           </p>
         </div>
-        <Button onBtnClick={onClearAllClick} text="Clear" />
+        <Button type="button" onBtnClick={onClearAllClick}>
+          Clear
+        </Button>
       </form>
     </>
   );

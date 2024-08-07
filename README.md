@@ -1,7 +1,8 @@
 # Currency Conversion App
 
-This currency converter uses the Currency Beacon API to fetch current exchange rates for currencies worldwide.
-To fetch a list of currencies from the Currency Beacon API, you need to obtain your own API key.
+## React + TypeScript + Vite
+
+This currency converter uses the Currency Beacon API to fetch current exchange rates for currencies worldwide. To fetch a list of currencies from the Currency Beacon API, you need to obtain your own API key.
 There is an example of the necessary variables in .env.local.
 
 ### Installation
@@ -15,10 +16,10 @@ Install all dependencies by running:
 
 In the project directory "currency-conversion-app(main)", start the project by running:
 
-## `npm start`
+## `npm run dev`
 
-The app will run in development mode. Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
+The app will run in development mode, but doesn't run automatically.
+Open [http://localhost:5173/](http://localhost:5173/) to view it in the browser.
 The page will reload if you make edits.
 You will also see any lint errors in the console.
 

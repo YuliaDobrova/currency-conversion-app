@@ -1,4 +1,4 @@
-import React from 'react';
+
 import './App.css';
 import Title from './components/title/Title';
 import Currency from './components/currency/Currency';
