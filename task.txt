@@ -53,3 +53,5 @@ Are any optional features implemented effectively?
 - You are encouraged to use any additional libraries or tools you find necessary to complete the project efficiently.
 - Please ensure that your project is self-contained and can be easily set up and run by the evaluation team.
 - If you have any questions or need clarification on the requirements, feel free to reach out for assistance. Good luck!
+
+builded in vercel
