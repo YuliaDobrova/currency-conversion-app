@@ -1,4 +1,4 @@
-const Button = ({ type= "submit", onBtnClick = () => {}, children }) => {
+const Button = ({ type, onBtnClick = () => {}, children }) => {
   return (
     <button type={type} onClick={onBtnClick}>
       {children}

@@ -11,15 +11,28 @@ import { fields } from "./fields";
 
 import "./Currency.css";
 
+export interface CurrencyData {
+  id: number;
+  name: string;
+  short_code: string;
+  symbol: string;
+  precision?: number;
+  subunit?: number;
+  symbol_first?: boolean;
+  decimal_mark?: string;
+  thousands_separator?: string;
+}
+
 const Currency = () => {
   // -------------ALL STATES-------------
-  const [isLoading, setIsLoading] = useState(false);
-  const [allCurrencyData, setAllCurrencyData] = useState([]);
-  const [error, setError] = useState(null);
-  const [fromCurrencyShortCode, setFromCurrencyShortCode] = useState("CAD");
-  const [toCurrencyShortCode, setToCurrencyShortCode] = useState("USD");
-  const [amount, setAmount] = useState("");
-  const [convertedResult, setConvertedResult] = useState("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [allCurrencyData, setAllCurrencyData] = useState<CurrencyData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [fromCurrencyShortCode, setFromCurrencyShortCode] =
+    useState<string>("CAD");
+  const [toCurrencyShortCode, setToCurrencyShortCode] = useState<string>("USD");
+  const [amount, setAmount] = useState<string | number>("");
+  const [convertedResult, setConvertedResult] = useState<string | number>("");
 
   // -------------GET ALL CURRENCY DATA-------------
   useEffect(() => {
@@ -28,7 +41,7 @@ const Currency = () => {
         setIsLoading(true);
         const { response } = await getCurrency();
         setAllCurrencyData([...response]);
-      } catch (error) {
+      } catch (error: any) {
         console.log("Error:", error);
         setError(error.message);
       } finally {
@@ -59,7 +72,7 @@ const Currency = () => {
       setAmount("");
       return;
     }
-    if (amount < 0) {
+    if (+amount < 0) {
       alert("The number cannot be negative. Enter a positive number.");
       setAmount("");
       return;
@@ -112,7 +125,7 @@ const Currency = () => {
         />
         <br />
         <Input {...fields.amount} value={amount} onChange={onAmountChange} />
-        <Button>Convert</Button>
+        <Button type="submit">Convert</Button>
         <div className="currency-result-box">
           <p>
             <span>Result: </span>
