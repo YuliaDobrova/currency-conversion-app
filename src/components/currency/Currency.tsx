@@ -86,7 +86,7 @@ const Currency = () => {
       const data = await convertCurrency({ to, from, amount });
       const { value } = data;
       const exchangeRate = value / Number(amount);
-      setRate(Number(exchangeRate.toFixed(3)));
+      setRate(Number(exchangeRate.toFixed(4)));
       setConvertedResult(Number(value.toFixed(2)));
     } catch (error) {
       console.error("Error:", error);
@@ -132,8 +132,9 @@ const Currency = () => {
 
         {rate && (
           <p className="currency-rate">
-            The exchange <b>rate</b> from 1 {fromCurrencyShortCode} to 1{" "}
-            {toCurrencyShortCode} is: <b>{rate}</b>
+            The exchange <b>rate</b>
+            <br /> from 1 {fromCurrencyShortCode} to 1 {toCurrencyShortCode} is:{" "}
+            <b>{rate}</b>
           </p>
         )}
 

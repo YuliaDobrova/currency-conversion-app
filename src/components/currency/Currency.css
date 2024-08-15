@@ -102,9 +102,18 @@ button:hover {
 }
 
 .currency-rate {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   font-size: 14px;
   text-align: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  width: 230px;
+}
+@media screen and (min-width: 400px) {
+  .currency-rate {
+    width: 300px;
+  }
 }
 
 .currency-result-box {

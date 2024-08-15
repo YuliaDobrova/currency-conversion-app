@@ -66,6 +66,8 @@ body {
   min-height: 600px;
   margin-left: auto;
   margin-right: auto;
+  width: 85vw;
+  padding: 15px;
   padding: 30 px;
   background-color: midnightblue;
   opacity: 0.85;
@@ -76,6 +78,7 @@ body {
 @media screen and (min-width: 400px) {
   .container {
     width: 50vw;
+    min-height: 650px;
   }
 }
 
