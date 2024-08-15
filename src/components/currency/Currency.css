@@ -101,6 +101,12 @@ button:hover {
   margin-bottom: 5px;
 }
 
+.currency-rate {
+  font-size: 14px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
 .currency-result-box {
   display: flex;
   flex-direction: row;

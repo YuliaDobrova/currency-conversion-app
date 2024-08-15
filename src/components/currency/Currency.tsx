@@ -32,6 +32,7 @@ const Currency = () => {
     useState<string>("CAD");
   const [toCurrencyShortCode, setToCurrencyShortCode] = useState<string>("USD");
   const [amount, setAmount] = useState<string | number>("");
+  const [rate, setRate] = useState<string | number>("");
   const [convertedResult, setConvertedResult] = useState<string | number>("");
 
   // -------------GET ALL CURRENCY DATA-------------
@@ -84,8 +85,9 @@ const Currency = () => {
     try {
       const data = await convertCurrency({ to, from, amount });
       const { value } = data;
-      const roundedResult = Number(value.toFixed(2));
-      setConvertedResult(roundedResult);
+      const exchangeRate = value / Number(amount);
+      setRate(Number(exchangeRate.toFixed(3)));
+      setConvertedResult(Number(value.toFixed(2)));
     } catch (error) {
       console.error("Error:", error);
       throw error;
@@ -95,6 +97,7 @@ const Currency = () => {
   // -------------CLEAR ALL------------
   const onClearAllClick = () => {
     setAmount("");
+    setRate("");
     setConvertedResult("");
     setFromCurrencyShortCode("CAD");
     setToCurrencyShortCode("USD");
@@ -126,12 +129,23 @@ const Currency = () => {
         <br />
         <Input {...fields.amount} value={amount} onChange={onAmountChange} />
         <Button type="submit">Convert</Button>
-        <div className="currency-result-box">
-          <p>
-            <span>Result: </span>
-            <span>{convertedResult}</span>
+
+        {rate && (
+          <p className="currency-rate">
+            The exchange <b>rate</b> from 1 {fromCurrencyShortCode} to 1{" "}
+            {toCurrencyShortCode} is: <b>{rate}</b>
           </p>
+        )}
+
+        <div className="currency-result-box">
+          {convertedResult !== "" && (
+            <p>
+              <span>Result: </span>
+              <span>{convertedResult}</span>
+            </p>
+          )}
         </div>
+
         <Button type="button" onBtnClick={onClearAllClick}>
           Clear
         </Button>
