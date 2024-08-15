@@ -4,6 +4,7 @@ import Select from "../shared/Select/Select";
 import Input from "../shared/Input/Input";
 import Button from "../shared/Button/Button";
 import Loader from "../loader/Loader";
+import Error from "../error/Error";
 
 import { getCurrency, convertCurrency } from "../../api/currencyServiсe";
 
@@ -104,7 +105,7 @@ const Currency = () => {
   };
 
   if (error) {
-    return <p>Techinal error. Please enter later.</p>;
+    return <Error />;
   }
 
   if (isLoading) {
@@ -142,7 +143,9 @@ const Currency = () => {
           {convertedResult !== "" && (
             <p>
               <span>Result: </span>
-              <span>{convertedResult}</span>
+              <span>
+                {convertedResult} {toCurrencyShortCode}
+              </span>
             </p>
           )}
         </div>

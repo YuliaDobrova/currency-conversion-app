@@ -7,13 +7,11 @@ const currencyInstance = axios.create({
   baseURL,
   params: {
     api_key,
-  }
+  },
 });
 
 export const getCurrency = async () => {
-  const { data } = await currencyInstance.get(
-    "/currencies"
-  );
+  const { data } = await currencyInstance.get("/currencies");
   return data;
 };
 
@@ -23,8 +21,8 @@ export const convertCurrency = async ({ to, from, amount }) => {
       to,
       from,
       amount,
-    }
+    },
   });
 
   return data;
-}
+};

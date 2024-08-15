@@ -75,7 +75,7 @@ body {
   box-shadow: 1px 1px 15px rgba(255, 255, 255, 0.5),
     -1px -1px 15px rgba(255, 255, 255, 0.5);
 }
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 700px) {
   .container {
     width: 50vw;
     min-height: 650px;

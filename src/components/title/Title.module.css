@@ -8,7 +8,7 @@
   animation: textShadow 2500ms infinite alternate;
 }
 
-@media screen and (min-width: 400px) {
+@media screen and (min-width: 600px) {
   .title {
     font-size: 36px;
   }
