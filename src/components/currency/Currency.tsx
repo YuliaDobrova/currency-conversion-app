@@ -56,14 +56,21 @@ const Currency = () => {
   }, []);
 
   // -------------SELECT CURRENCY-------------
-  const onFromCurrencyChange = ({ target }) =>
+  const onFromCurrencyChange = ({ target }) => {
     setFromCurrencyShortCode(target.value);
-  const onToCurrencyChange = ({ target }) =>
+    setRate("");
+    setConvertedResult("");
+  };
+  const onToCurrencyChange = ({ target }) => {
     setToCurrencyShortCode(target.value);
+    setRate("");
+    setConvertedResult("");
+  };
 
   // -------------CHANGE AMOUNT-------------
   const onAmountChange = (event) => {
     setAmount(event.target.value);
+    setConvertedResult("");
   };
 
   // -------------CONVERT CURRENCY-------------
